@@ -2,7 +2,6 @@ import React from "react";
 import { useFirebase } from "../FirebaseSetup/Context";
 const Tempuser = () => {
   const { user } = useFirebase();
-  console.log(user);
   return (
     <div className="text-white">
       <center>
