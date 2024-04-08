@@ -101,7 +101,7 @@ export const FirebaseProvider = (props) => {
         const token = credential.accessToken;
         const user = result.user;
         console.log(user);
-        navigate("/");
+        navigate("/user");
       })
       .catch((error) => {
         // Handle Errors here.
