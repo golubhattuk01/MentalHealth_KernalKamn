@@ -9,41 +9,30 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-white">
-      <h1 className="w-full text-3xl font-bold text-[#912BBC]">KernalKamn</h1>
-      <ul className="hidden md:flex">
-        <Link to="/">
-          <li className="p-4">Home</li>
-        </Link>
-        <Link to="/">
-          <li className="p-4">Company</li>
-        </Link>
-        <Link to="/">
-          <li className="p-4">Resources</li>
-        </Link>
-        <Link to="/">
-          <li className="p-4">About</li>
-        </Link>
-        <Link to="/">
-          <li className="p-4">Contact</li>
-        </Link>
-      </ul>
-      <div onClick={handleNav} className="block md:hidden">
-        {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
+    <div className="bg-gradient-to-b from-purple-400 to-purple-200 flex justify-between items-center h-24 max-w-full mx-auto px-4 text-white shadow-md" >
+      <h1 className="text-center w-full text-3xl font-bold text-purple-800 font-open-sans-unique cursor-pointer">
+        <Link to="/" className="hover:text-purple-900">KernalKamn</Link>
+      </h1>
+      <div className="md:hidden">
+        {nav ? (
+          <AiOutlineClose onClick={handleNav} className="text-3xl cursor-pointer" />
+        ) : (
+          <AiOutlineMenu onClick={handleNav} className="text-3xl cursor-pointer" />
+        )}
       </div>
       <ul
         className={
           nav
-            ? "fixed left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500"
+            ? "fixed left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-gray-100 ease-in-out duration-500"
             : "ease-in-out duration-500 fixed left-[-100%]"
         }
       >
-        <h1 className="w-full text-3xl font-bold text-[#00df9a] m-4">REACT.</h1>
-        <li className="p-4 border-b border-gray-600">Home</li>
-        <li className="p-4 border-b border-gray-600">Company</li>
-        <li className="p-4 border-b border-gray-600">Resources</li>
-        <li className="p-4 border-b border-gray-600">About</li>
-        <li className="p-4">Contact</li>
+        <h1 className="w-full text-3xl font-bold text-purple-800 m-4 text-center">Navigation</h1>
+        <li className="p-4 border-b border-gray-300"><Link to="/" className="hover:text-purple-900">Home</Link></li>
+        <li className="p-4 border-b border-gray-300"><Link to="/company" className="hover:text-purple-900">Company</Link></li>
+        <li className="p-4 border-b border-gray-300"><Link to="/resources" className="hover:text-purple-900">Resources</Link></li>
+        <li className="p-4 border-b border-gray-300"><Link to="/about" className="hover:text-purple-900">About</Link></li>
+        <li className="p-4"><Link to="/contact" className="hover:text-purple-900">Contact</Link></li>
       </ul>
     </div>
   );
