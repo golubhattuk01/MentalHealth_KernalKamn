@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useFirebase } from "../FirebaseSetup/Context";
 
 const Navbar = () => {
+  const firebase = useFirebase();
   const [nav, setNav] = useState(false);
   const handleNav = () => {
     setNav(!nav);
