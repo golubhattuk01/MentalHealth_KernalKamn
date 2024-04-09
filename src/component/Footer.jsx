@@ -7,15 +7,14 @@ import {
   FaTwitterSquare,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
-    <div className="max-w-[1240px] mx-auto py-16 px-4 grid lg:grid-cols-3 gap-8 text-gray-300">
+    <div className="bg-gradient-to-b from-purple-400 to-purple-200  py-16 px-4 grid lg:grid-cols-3 gap-8 text-gray-800">
       <div>
-        <h1 className="w-full text-3xl font-bold text-[#00df9a]">REACT.</h1>
-        <p className="py-4">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id odit
-          ullam iste repellat consequatur libero reiciendis, blanditiis
-          accusantium.
+        <h1 className="w-full text-3xl font-bold text-purple-800">KernalKaam</h1>
+        <p className="py-4 text-gray-800">
+          Remember, healing is not a linear journey. Be patient with yourself. Reach out for support when you need it, and always remember that you are not alone on this path to wellness
         </p>
         <div className="flex justify-between md:w-[75%] my-6">
           <FaFacebookSquare size={30} />
@@ -27,70 +26,70 @@ const Footer = () => {
       </div>
       <div className="lg:col-span-2 flex justify-between mt-6">
         <div>
-          <h6 className="font-medium text-gray-400">Solutions</h6>
+          <h6 className="font-medium text-gray-800">Solutions</h6>
           <ul>
             <Link to="/">
-              <li className="py-2 text-sm">Analytics</li>
+              <li className="py-2 text-gray-800">Analytics</li>
             </Link>
             <Link to="/">
-              <li className="py-2 text-sm">Marketing</li>
+              <li className="py-2 text-gray-800">Marketing</li>
             </Link>
             <Link to="/">
-              <li className="py-2 text-sm">Commerce</li>
+              <li className="py-2 text-gray-800">Commerce</li>
             </Link>
             <Link to="/">
-              <li className="py-2 text-sm">Insights</li>
+              <li className="py-2 text-gray-800">Insights</li>
             </Link>
           </ul>
         </div>
         <div>
-          <h6 className="font-medium text-gray-400">Support</h6>
+          <h6 className="font-medium text-gray-800">Support</h6>
           <ul>
             <Link to="/">
-              <li className="py-2 text-sm">Pricing</li>
+              <li className="py-2 text-gray-800">Talk to Us</li>
             </Link>
             <Link to="/">
-              <li className="py-2 text-sm">Documentation</li>
+              <li className="py-2 text-gray-800">Documentation</li>
             </Link>
             <Link to="/">
-              <li className="py-2 text-sm">Guides</li>
+              <li className="py-2 text-gray-800">Guides</li>
             </Link>
             <Link to="/">
-              <li className="py-2 text-sm">API Status</li>
+              <li className="py-2 text-gray-800">API Status</li>
             </Link>
           </ul>
         </div>
         <div>
-          <h6 className="font-medium text-gray-400">Company</h6>
+          <h6 className="font-medium text-gray-800">Company</h6>
           <ul>
             <Link to="/">
-              <li className="py-2 text-sm">About</li>
+              <li className="py-2 text-gray-800">About</li>
             </Link>
             <Link to="/">
-              <li className="py-2 text-sm">Blog</li>
+              <li className="py-2 text-gray-800">Blog</li>
             </Link>
             <Link to="/">
-              <li className="py-2 text-sm">Jobs</li>
+              <li className="py-2 text-gray-800">Jobs</li>
             </Link>
             <Link to="/">
-              <li className="py-2 text-sm">Press</li>
+              <li className="py-2 text-gray-800">Press</li>
             </Link>
             <Link to="/">
-              <li className="py-2 text-sm">Careers</li>
+              <li className="py-2 text-gray-800">Careers</li>
             </Link>
           </ul>
         </div>
         <div>
-          <h6 className="font-medium text-gray-400">Legal</h6>
+          <h6 className="font-medium text-gray-800">Legal</h6>
           <ul>
             <Link to="/">
-              <li className="py-2 text-sm">Claim</li>
+              <li className="py-2 text-gray-800">Claim</li>
             </Link>
             <Link to="/">
-              <li className="py-2 text-sm">Policy</li>
+              <li className="py-2 text-gray-800">Policy</li>
             </Link>
             <Link to="/">
-              <li className="py-2 text-sm">Terms</li>
+              <li className="py-2 text-gray-800">Terms</li>
             </Link>
           </ul>
         </div>
