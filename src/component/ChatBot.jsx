@@ -17,10 +17,10 @@ class ChatBot extends Component {
     this.scrollToBottom();
   }
 
-  componentDidUpdate() {
-    // Scroll to the bottom of the chat messages when component updates with new messages
-    this.scrollToBottom();
-  }
+  // componentDidUpdate() {
+  //   // Scroll to the bottom of the chat messages when component updates with new messages
+  //   this.scrollToBottom();
+  // }
 
   scrollToBottom = () => {
     this.messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -78,6 +78,7 @@ class ChatBot extends Component {
 
     // Reverse the order of messages to display user messages on top
     const reversedMessages = [...messages].reverse();
+    // const messagesInOrder = [...messages].reverse();
 
     return (
       <div className="container">
@@ -102,12 +103,13 @@ class ChatBot extends Component {
                 </p>
               </div>
             </div>
+
             <div className="chatbox__messages">
               {reversedMessages.map((msg, index) => (
                 <div
                   key={index}
                   className={`messages__item ${
-                    msg.name === "Sam"
+                    msg.name !== "Sam"
                       ? "messages__item--operator"
                       : "messages__item--visitor"
                   }`}
@@ -115,9 +117,9 @@ class ChatBot extends Component {
                   {msg.message}
                 </div>
               ))}
-              {/* Empty div used as ref to scroll to bottom */}
               <div ref={this.messagesEndRef} />
             </div>
+
             <div className="chatbox__footer">
               <input
                 type="text"
