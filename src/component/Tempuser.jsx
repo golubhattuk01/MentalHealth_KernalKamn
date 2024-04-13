@@ -1,11 +1,13 @@
 import React from "react";
 import { useFirebase } from "../FirebaseSetup/Context";
 import "./LoginSuccessPage.css";
+import { useNavigate } from "react-router-dom";
 import Dashboard from "../user/Dashboard"
 import UserTest from "../loginAndSignup/userTest/UserTest";
 
 const LoginSuccessPage = () => {
   const { user } = useFirebase();
+  const navigate = useNavigate();
 
   return (
     <div className="login-success-container bg-gradient-to-b from-purple-200 to-purple-400">
@@ -25,9 +27,17 @@ const LoginSuccessPage = () => {
         <p className="login-success-message">
           You have successfully logged in with Google.
         </p>
+        <br />
+
+        <a
+        className="text-red-600 hover:underline hover:underline-offset-4 cursor-pointer"
+        onClick={() => navigate("/test")} // Navigate to login page on click
+      >
+        Ready to Go
+      </a>
         
       </div>
-      <UserTest></UserTest>
+      
     </div>
   );
 };
