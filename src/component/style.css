@@ -22,7 +22,7 @@ body {
 /* CHATBOX
 =============== */
 .chatbox {
-    position: absolute;
+    position: fixed;
     bottom: 30px;
     right: 30px;
 }
@@ -50,6 +50,19 @@ body {
 /* BUTTON */
 .chatbox__button {
     text-align: right;
+    margin-right: 2rem;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    width: 60px;
+    height: 30px;
+    /* background-color:; */
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .send__button {
@@ -186,19 +199,7 @@ body {
     color: white;
 }
 
-.chatbox__button button,
-.chatbox__button button:focus,
-.chatbox__button button:visited {
-    padding: 10px;
-    background: white;
-    border: none;
-    outline: none;
-    border-top-left-radius: 50px;
-    border-top-right-radius: 50px;
-    border-bottom-left-radius: 50px;
-    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-}
+
 
 .img-bot{
     width: 60px;
