@@ -1,0 +1,40 @@
+.login-success-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.login-success-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.profile-section {
+  margin-bottom: 20px;
+}
+
+.login-success-profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.login-success-default-pic {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.login-success-welcome {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.login-success-message {
+  color: #666;
+}

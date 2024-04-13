@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./style.css"; // Import your CSS file
+import chatbot from '../assets/chatbot.png'
 
 class ChatBot extends Component {
   constructor(props) {
@@ -141,7 +142,7 @@ class ChatBot extends Component {
               {/* Placeholder image */}
               <img
                 className="img-bot"
-                src="https://w7.pngwing.com/pngs/408/238/png-transparent-pink-and-blue-illustration-discord-computer-icons-logo-user-internet-bot-discord-icon-purple-angle-violet-thumbnail.png"
+                src={chatbot}
                 alt="Chatbox icon"
               />
             </button>

@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import Navbar from "./component/Navbar.jsx";
 import Footer from "./component/Footer.jsx";
+import ChatWithUs from "./component/chatwithus.jsx";
+import ChatBot from "./component/ChatBot.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
     <BrowserRouter>
