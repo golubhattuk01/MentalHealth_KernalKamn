@@ -5,6 +5,9 @@ import {
   getDocs,
   getDoc,
   doc,
+  query,
+  where,
+  updateDoc,
 } from "firebase/firestore";
 
 import {
@@ -94,6 +97,59 @@ export const FirebaseProvider = (props) => {
     });
   }, []);
 
+  const problems = [
+    {
+      id: 1,
+      question: "hello go to village",
+      taskAttempted: false,
+      options: ["option1", "option2", "option3", "option4"],
+    },
+    {
+      id: 2,
+      question: "hello go to village",
+      options: ["option1", "option2", "option3", "option4"],
+    },
+    {
+      id: 3,
+      question: "hello go to village",
+      taskAttempted: false,
+      options: ["option1", "option2", "option3", "option4"],
+    },
+    {
+      id: 4,
+      question: "hello go to village",
+      taskAttempted: false,
+      options: ["option1", "option2", "option3", "option4"],
+    },
+  ];
+
+  async function mUser(user) {
+    const usersCollection = collection(fireStore, "users");
+    const querySnapshot = await getDocs(
+      query(usersCollection, where("email", "==", user.email))
+    );
+
+    // Check if any documents are returned by the query
+    if (!querySnapshot.empty) {
+      console.log("User already exists. No need to create a new one.");
+      return; // Exit the function if user exists
+    }
+
+    const docData = {
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL,
+      attempted: false,
+      problems: problems,
+      score: 0,
+    };
+    const fireUser = await addDoc(collection(fireStore, "users"), docData);
+    if (fireUser) {
+      console.log("user added suceessfully");
+    } else {
+      console.log("failed to add user");
+    }
+  }
   const signUpWithGoogle = async () => {
     return signInWithPopup(firebaseAuth, provider)
       .then((result) => {
@@ -101,6 +157,8 @@ export const FirebaseProvider = (props) => {
         const token = credential.accessToken;
         const user = result.user;
         console.log(user);
+        mUser(user);
+        setUser(user);
         navigate("/user");
       })
       .catch((error) => {
@@ -129,19 +187,44 @@ export const FirebaseProvider = (props) => {
       });
   };
 
-  const writeUserData = async (email, password, userID) => {
-    if (email === null || password === null) {
-      console.log("can't save null value ");
+  //modidy the score and attempted
+
+  async function updateUserScoreAndAttempted(
+    userEmail,
+    newScore,
+    newAttempted
+  ) {
+    // Reference to the users collection
+    const usersCollection = collection(fireStore, "users");
+
+    // Create a query to find the user by email
+    const querySnapshot = await getDocs(
+      query(usersCollection, where("email", "==", userEmail))
+    );
+
+    // Check if the user exists
+    if (querySnapshot.empty) {
+      console.log("No user found with the specified email.");
       return;
     }
-    set(ref(firebaseDB, "users/" + userID), {
-      email,
-      password,
+
+    // Assuming email is unique and only one document should match
+    const userDoc = querySnapshot.docs[0];
+
+    // Reference to the specific user document
+    const userDocRef = doc(fireStore, "users", userDoc.id);
+
+    // Update the 'score' and 'attempted' fields
+    await updateDoc(userDocRef, {
+      score: newScore,
+      attempted: newAttempted,
     });
-  };
+
+    console.log("User score and attempted status updated successfully.");
+  }
 
   useEffect(() => {
-    const starCountRef = ref(firebaseDB, "users/");
+    const starCountRef = ref(firebaseDB, "users");
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val();
       setMsg(snapshot.val());
@@ -225,7 +308,6 @@ export const FirebaseProvider = (props) => {
         signUpWithGoogle,
         user,
         logout,
-        writeUserData,
         msg,
         loginWithEmailPass,
         addbook,
@@ -234,6 +316,7 @@ export const FirebaseProvider = (props) => {
         setToggle,
         toggle,
         getView,
+        updateUserScoreAndAttempted,
       }}
     >
       {props.children}
