@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { mentalHealthQuestions } from "/src/loginAndSignup/userTest/TestQuestions.js";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import firebase from "firebase/compat/app";
+import { useFirebase } from "../../FirebaseSetup/Context";
 
 const UserTest = () => {
+  const { user } = useFirebase();
+  const firebase = useFirebase();
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [responses, setResponses] = useState({});
   const [submit, setSubmit] = useState(false);
@@ -16,6 +23,7 @@ const UserTest = () => {
   };
 
   const handleNextQuestion = () => {
+    console.log("next button ");
     if (currentQuestion < mentalHealthQuestions.length - 1) {
       setCurrentQuestion((prevQuestion) => prevQuestion + 1);
     } else {
@@ -24,14 +32,21 @@ const UserTest = () => {
     }
   };
   const handleFinalQuestion = async () => {
+    console.log("final button ");
     if (currentQuestion < mentalHealthQuestions.length - 1) {
       setCurrentQuestion((prevQuestion) => prevQuestion + 1);
     } else {
       setSubmit(true);
       setScore(calculateAssessment());
     }
+    // setScore((pre) => pre + 0);
+    // console.log("my score  is ", score);
 
-    await firebase.updateUserScoreAndAttempted(user?.email, score, true);
+    firebase.updateUserScoreAndAttempted(
+      user?.email,
+      calculateAssessment(),
+      true
+    );
   };
 
   const calculateAssessment = () => {

@@ -83,9 +83,11 @@ export const FirebaseProvider = (props) => {
 
   //google method
   const [user, setUser] = useState(null);
+  let fireUser = [];
   const [msg, setMsg] = useState({});
   const navigate = useNavigate();
 
+  //auth change
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (user) => {
       if (user) {
@@ -103,23 +105,27 @@ export const FirebaseProvider = (props) => {
       question: "hello go to village",
       taskAttempted: false,
       options: ["option1", "option2", "option3", "option4"],
+      score: 0,
     },
     {
       id: 2,
       question: "hello go to village",
       options: ["option1", "option2", "option3", "option4"],
+      score: 0,
     },
     {
       id: 3,
       question: "hello go to village",
       taskAttempted: false,
       options: ["option1", "option2", "option3", "option4"],
+      score: 0,
     },
     {
       id: 4,
       question: "hello go to village",
       taskAttempted: false,
       options: ["option1", "option2", "option3", "option4"],
+      score: 0,
     },
   ];
 
@@ -150,28 +156,51 @@ export const FirebaseProvider = (props) => {
       console.log("failed to add user");
     }
   }
-  const signUpWithGoogle = async () => {
-    return signInWithPopup(firebaseAuth, provider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
-        console.log(user);
-        mUser(user);
-        setUser(user);
-        navigate("/user");
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
+
+  const getFireUser = async (userEmail) => {
+    const usersCollection = collection(fireStore, "users");
+
+    // Create a query to find the user by email
+    const querySnapshot = await getDocs(
+      query(usersCollection, where("email", "==", userEmail))
+    );
+
+    // Check if the user exists
+    if (querySnapshot.empty) {
+      console.log("No user found with the specified email.");
+      return [];
+    }
+
+    // Map over the documents and extract the data
+    const users = querySnapshot.docs.map((doc) => ({
+      id: doc.id, // include the document ID in case it's needed for reference
+      ...doc.data(), // spread the document data
+    }));
+    fireUser = users[0]; // Return the array of user data
+    return users;
   };
+
+  const signUpWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(firebaseAuth, provider);
+      const user = result.user;
+      await mUser(user); // Make sure user is added
+      setUser(user);
+      navigate("/user");
+    } catch (error) {
+      console.error("Error during Google sign-up:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      getFireUser(user.email).then((userData) => {
+        if (userData.length > 0) {
+          console.log("fireUser ", fireUser);
+        }
+      });
+    }
+  }, [user]);
 
   const logout = async () => {
     signOut(firebaseAuth)
@@ -207,6 +236,7 @@ export const FirebaseProvider = (props) => {
       console.log("No user found with the specified email.");
       return;
     }
+    // console.log(userEmail, newScore, newAttempted);
 
     // Assuming email is unique and only one document should match
     const userDoc = querySnapshot.docs[0];
@@ -222,15 +252,6 @@ export const FirebaseProvider = (props) => {
 
     console.log("User score and attempted status updated successfully.");
   }
-
-  useEffect(() => {
-    const starCountRef = ref(firebaseDB, "users");
-    onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      setMsg(snapshot.val());
-      // updateStarCount(postElement, data);
-    });
-  }, []);
 
   const loginWithEmailPass = async (email, password) => {
     signInWithEmailAndPassword(firebaseAuth, email, password)
@@ -277,29 +298,6 @@ export const FirebaseProvider = (props) => {
   };
   // get docs
   const [toggle, setToggle] = useState(false);
-  const getBooks = async () => {
-    const docRef = collection(fireStore, "books");
-    const mybook = await getDocs(docRef);
-
-    if (mybook) {
-      // console.log(mybook.docs[0].data().auther);
-      setToggle(!toggle);
-      return mybook;
-    } else {
-      console.log("No such document!");
-    }
-  };
-
-  const getView = async (id) => {
-    const docRef = doc(fireStore, "books", id);
-    const docSnap = await getDoc(docRef);
-    if (docSnap) {
-      // console.log(docSnap.data());
-      return docSnap;
-    } else {
-      console.log("No such document!");
-    }
-  };
 
   return (
     <FirebaseContext.Provider
@@ -308,15 +306,9 @@ export const FirebaseProvider = (props) => {
         signUpWithGoogle,
         user,
         logout,
-        msg,
         loginWithEmailPass,
-        addbook,
-        getBooks,
-        getImg,
-        setToggle,
-        toggle,
-        getView,
         updateUserScoreAndAttempted,
+        fireUser,
       }}
     >
       {props.children}
