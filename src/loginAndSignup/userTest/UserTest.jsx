@@ -150,7 +150,7 @@ const UserTest = () => {
             ) : (
               <button
                 type="button"
-                onClick={handleNextQuestion}
+                onClick={handleFinalQuestion}
                 className="mt-4 bg-blue-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out hover:bg-blue-600 focus:outline-none focus:shadow-outline font-body "
               >
                 Submit
