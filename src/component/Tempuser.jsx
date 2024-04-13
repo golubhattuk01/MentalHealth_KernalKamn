@@ -45,7 +45,7 @@ const LoginSuccessPage = () => {
               className="text-red-600 hover:underline hover:underline-offset-4 cursor-pointer"
               onClick={() => {
                 if (firebase.fireUser?.attempted) {
-                  navigate("/user");
+                  navigate("/dash");
                 } else {
                   navigate("/test");
                 }
