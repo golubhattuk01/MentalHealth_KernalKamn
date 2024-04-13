@@ -4,7 +4,7 @@ import Content from "./Accoridion";
 
 const AccordComponent = () => {
   return (
-    <div className="p-8">
+    <div className="p-8 rounded-md">
       <Content
         title="Accordion 1"
         content="This is the content for Accordion 1."

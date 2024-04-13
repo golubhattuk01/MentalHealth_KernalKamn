@@ -8,7 +8,7 @@ const Content = ({ title, content }) => {
   };
 
   return (
-    <div className="border border-gray-300 rounded-md mb-4">
+    <div className="border border-gray-300 rounded-md mb-4 hover:bg-gradient-to-b from-purple-200 to-purple-400">
       <div
         className="flex justify-between items-center p-4 cursor-pointer"
         onClick={toggleAccordion}
