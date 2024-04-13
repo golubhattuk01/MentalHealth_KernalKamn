@@ -83,7 +83,7 @@ export const FirebaseProvider = (props) => {
 
   //google method
   const [user, setUser] = useState(null);
-  let fireUser = [];
+  const [fireUser, setFireUser] = useState(null);
   const [msg, setMsg] = useState({});
   const navigate = useNavigate();
 
@@ -158,26 +158,28 @@ export const FirebaseProvider = (props) => {
   }
 
   const getFireUser = async (userEmail) => {
-    const usersCollection = collection(fireStore, "users");
+    try {
+      const usersCollection = collection(fireStore, "users");
+      const querySnapshot = await getDocs(
+        query(usersCollection, where("email", "==", userEmail))
+      );
 
-    // Create a query to find the user by email
-    const querySnapshot = await getDocs(
-      query(usersCollection, where("email", "==", userEmail))
-    );
+      if (querySnapshot.empty) {
+        console.log("No user found with the specified email.");
+        return null;
+      }
 
-    // Check if the user exists
-    if (querySnapshot.empty) {
-      console.log("No user found with the specified email.");
-      return [];
+      const users = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      console.log("Fetched user data:", users[0]);
+      return users[0];
+    } catch (error) {
+      console.error("Failed to fetch user data:", error);
+      return null;
     }
-
-    // Map over the documents and extract the data
-    const users = querySnapshot.docs.map((doc) => ({
-      id: doc.id, // include the document ID in case it's needed for reference
-      ...doc.data(), // spread the document data
-    }));
-    fireUser = users[0]; // Return the array of user data
-    return users;
   };
 
   const signUpWithGoogle = async () => {
@@ -187,20 +189,27 @@ export const FirebaseProvider = (props) => {
       await mUser(user); // Make sure user is added
       setUser(user);
       navigate("/user");
+      getFireUser(user.email).then((userData) => {
+        if (userData.length > 0) {
+          setFireUser(userData[0]);
+          console.log("fireUser ", fireUser);
+        }
+      });
     } catch (error) {
       console.error("Error during Google sign-up:", error.message);
     }
   };
 
+  // Adjust where you call getFireUser
   useEffect(() => {
     if (user) {
       getFireUser(user.email).then((userData) => {
-        if (userData.length > 0) {
-          console.log("fireUser ", fireUser);
-        }
+        setFireUser(userData);
       });
+    } else {
+      setFireUser(null); // Explicitly handle the case where there is no user
     }
-  }, [user]);
+  }, [user]); // Ensure this effect runs only when `user` changes
 
   const logout = async () => {
     signOut(firebaseAuth)

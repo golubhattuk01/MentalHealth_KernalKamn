@@ -7,9 +7,10 @@ import { useFirebase } from "../../FirebaseSetup/Context";
 const UserTest = () => {
   const { user } = useFirebase();
   const firebase = useFirebase();
+
   useEffect(() => {
-    console.log(user);
-  }, [user]);
+    console.log("heyy", firebase.fireUser);
+  }, [firebase.fireUser]);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [responses, setResponses] = useState({});
@@ -118,6 +119,7 @@ const UserTest = () => {
         <h1 className="text-5xl font-bold mb-6 text-center text-white font-display">
           Mental Health Assessment
         </h1>
+        {firebase.fireUser?.attempted && <h2>already attemped</h2>}
         <p className="text-xl mb-8 text-center text-blue-200 font-body mb-4">
           Answer the following questions to assess your current mental health
           status.

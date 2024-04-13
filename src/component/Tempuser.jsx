@@ -6,6 +6,11 @@ import Dashboard from "../user/Dashboard";
 import UserTest from "../loginAndSignup/userTest/UserTest";
 
 const LoginSuccessPage = () => {
+  const firebase = useFirebase();
+  useEffect(() => {
+    console.log("heyy", firebase.fireUser);
+  }, [firebase.fireUser]);
+
   const { user } = useFirebase();
   useEffect(() => {
     console.log(user);
@@ -38,7 +43,13 @@ const LoginSuccessPage = () => {
 
             <a
               className="text-red-600 hover:underline hover:underline-offset-4 cursor-pointer"
-              onClick={() => navigate("/test")} // Navigate to login page on click
+              onClick={() => {
+                if (firebase.fireUser?.attempted) {
+                  navigate("/user");
+                } else {
+                  navigate("/test");
+                }
+              }} // Navigate to login page on click
             >
               Ready to Go
             </a>
