@@ -128,7 +128,7 @@ const Today = () => {
           Mental Health Assessment
         </h1>
         {firebase.fireUser?.attempted && <h2>already attemped</h2>}
-        <p className="text-xl mb-8 text-center text-blue-200 font-body mb-4">
+        <p className="text-xl mb-8 text-center text-blue-200 font-body">
           Answer the following questions to assess your current mental health
           status.
         </p>
