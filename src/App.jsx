@@ -7,6 +7,7 @@ import Signup from "./loginAndSignup/Signup.jsx";
 import ChatBot from "./component/ChatBot.jsx";
 import UserTest from "./loginAndSignup/userTest/UserTest.jsx";
 import Dashboard from "./user/Dashboard.jsx";
+import Today from "./loginAndSignup/userTest/Today.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path="/bot" element={<ChatBot />} />
       <Route path="/test" element={<UserTest />} />
       <Route path="/dash" element={<Dashboard />} />
+      <Route path="/task-today" element={<Today />} />
     </Routes>
   );
 }

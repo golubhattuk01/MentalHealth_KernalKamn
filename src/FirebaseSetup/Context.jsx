@@ -102,30 +102,435 @@ export const FirebaseProvider = (props) => {
   const problems = [
     {
       id: 1,
-      question: "hello go to village",
-      taskAttempted: false,
-      options: ["option1", "option2", "option3", "option4"],
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
       score: 0,
+      isAttempted: false,
     },
     {
       id: 2,
-      question: "hello go to village",
-      options: ["option1", "option2", "option3", "option4"],
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
       score: 0,
+      isAttempted: false,
     },
     {
       id: 3,
-      question: "hello go to village",
-      taskAttempted: false,
-      options: ["option1", "option2", "option3", "option4"],
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
       score: 0,
+      isAttempted: false,
     },
     {
       id: 4,
-      question: "hello go to village",
-      taskAttempted: false,
-      options: ["option1", "option2", "option3", "option4"],
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
       score: 0,
+      isAttempted: false,
+    },
+    {
+      id: 5,
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
+      score: 0,
+      isAttempted: false,
+    },
+    {
+      id: 6,
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
+      score: 0,
+      isAttempted: false,
+    },
+    {
+      id: 7,
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
+      score: 0,
+      isAttempted: false,
+    },
+    {
+      id: 8,
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
+      score: 0,
+      isAttempted: false,
+    },
+    {
+      id: 9,
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
+      score: 0,
+      isAttempted: false,
+    },
+    {
+      id: 10,
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
+      score: 0,
+      isAttempted: false,
+    },
+    {
+      id: 11,
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
+      score: 0,
+      isAttempted: false,
+    },
+    {
+      id: 12,
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
+      score: 0,
+      isAttempted: false,
+    },
+    {
+      id: 13,
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
+      score: 0,
+      isAttempted: false,
+    },
+    {
+      id: 14,
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
+      score: 0,
+      isAttempted: false,
+    },
+    {
+      id: 15,
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
+      score: 0,
+      isAttempted: false,
+    },
+    {
+      id: 16,
+      problem: [
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+        {
+          question:
+            "How often do you feel overwhelming sadness or hopelessness?",
+          options: [
+            "Rarely or never",
+            "Occasionally",
+            "Frequently",
+            "Almost constantly",
+          ],
+        },
+      ],
+      score: 0,
+      isAttempted: false,
     },
   ];
 
