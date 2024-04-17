@@ -5,6 +5,9 @@ import {
   getDocs,
   getDoc,
   doc,
+  query,
+  where,
+  updateDoc,
 } from "firebase/firestore";
 
 import {
@@ -80,9 +83,11 @@ export const FirebaseProvider = (props) => {
 
   //google method
   const [user, setUser] = useState(null);
+  const [fireUser, setFireUser] = useState(null);
   const [msg, setMsg] = useState({});
   const navigate = useNavigate();
 
+  //auth change
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (user) => {
       if (user) {
@@ -94,26 +99,117 @@ export const FirebaseProvider = (props) => {
     });
   }, []);
 
-  const signUpWithGoogle = async () => {
-    return signInWithPopup(firebaseAuth, provider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
-        console.log(user);
-        navigate("/user");
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
+  const problems = [
+    {
+      id: 1,
+      question: "hello go to village",
+      taskAttempted: false,
+      options: ["option1", "option2", "option3", "option4"],
+      score: 0,
+    },
+    {
+      id: 2,
+      question: "hello go to village",
+      options: ["option1", "option2", "option3", "option4"],
+      score: 0,
+    },
+    {
+      id: 3,
+      question: "hello go to village",
+      taskAttempted: false,
+      options: ["option1", "option2", "option3", "option4"],
+      score: 0,
+    },
+    {
+      id: 4,
+      question: "hello go to village",
+      taskAttempted: false,
+      options: ["option1", "option2", "option3", "option4"],
+      score: 0,
+    },
+  ];
+
+  async function mUser(user) {
+    const usersCollection = collection(fireStore, "users");
+    const querySnapshot = await getDocs(
+      query(usersCollection, where("email", "==", user.email))
+    );
+
+    // Check if any documents are returned by the query
+    if (!querySnapshot.empty) {
+      console.log("User already exists. No need to create a new one.");
+      return; // Exit the function if user exists
+    }
+
+    const docData = {
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL,
+      attempted: false,
+      problems: problems,
+      score: 0,
+    };
+    const fireUser = await addDoc(collection(fireStore, "users"), docData);
+    if (fireUser) {
+      console.log("user added suceessfully");
+    } else {
+      console.log("failed to add user");
+    }
+  }
+
+  const getFireUser = async (userEmail) => {
+    try {
+      const usersCollection = collection(fireStore, "users");
+      const querySnapshot = await getDocs(
+        query(usersCollection, where("email", "==", userEmail))
+      );
+
+      if (querySnapshot.empty) {
+        console.log("No user found with the specified email.");
+        return null;
+      }
+
+      const users = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      console.log("Fetched user data:", users[0]);
+      return users[0];
+    } catch (error) {
+      console.error("Failed to fetch user data:", error);
+      return null;
+    }
   };
+
+  const signUpWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(firebaseAuth, provider);
+      const user = result.user;
+      await mUser(user); // Make sure user is added
+      setUser(user);
+      navigate("/user");
+      getFireUser(user.email).then((userData) => {
+        if (userData.length > 0) {
+          setFireUser(userData[0]);
+          console.log("fireUser ", fireUser);
+        }
+      });
+    } catch (error) {
+      console.error("Error during Google sign-up:", error.message);
+    }
+  };
+
+  // Adjust where you call getFireUser
+  useEffect(() => {
+    if (user) {
+      getFireUser(user.email).then((userData) => {
+        setFireUser(userData);
+      });
+    } else {
+      setFireUser(null); // Explicitly handle the case where there is no user
+    }
+  }, [user]); // Ensure this effect runs only when `user` changes
 
   const logout = async () => {
     signOut(firebaseAuth)
@@ -129,25 +225,42 @@ export const FirebaseProvider = (props) => {
       });
   };
 
-  const writeUserData = async (email, password, userID) => {
-    if (email === null || password === null) {
-      console.log("can't save null value ");
+  //modidy the score and attempted
+
+  async function updateUserScoreAndAttempted(
+    userEmail,
+    newScore,
+    newAttempted
+  ) {
+    // Reference to the users collection
+    const usersCollection = collection(fireStore, "users");
+
+    // Create a query to find the user by email
+    const querySnapshot = await getDocs(
+      query(usersCollection, where("email", "==", userEmail))
+    );
+
+    // Check if the user exists
+    if (querySnapshot.empty) {
+      console.log("No user found with the specified email.");
       return;
     }
-    set(ref(firebaseDB, "users/" + userID), {
-      email,
-      password,
-    });
-  };
+    // console.log(userEmail, newScore, newAttempted);
 
-  useEffect(() => {
-    const starCountRef = ref(firebaseDB, "users/");
-    onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      setMsg(snapshot.val());
-      // updateStarCount(postElement, data);
+    // Assuming email is unique and only one document should match
+    const userDoc = querySnapshot.docs[0];
+
+    // Reference to the specific user document
+    const userDocRef = doc(fireStore, "users", userDoc.id);
+
+    // Update the 'score' and 'attempted' fields
+    await updateDoc(userDocRef, {
+      score: newScore,
+      attempted: newAttempted,
     });
-  }, []);
+
+    console.log("User score and attempted status updated successfully.");
+  }
 
   const loginWithEmailPass = async (email, password) => {
     signInWithEmailAndPassword(firebaseAuth, email, password)
@@ -194,29 +307,6 @@ export const FirebaseProvider = (props) => {
   };
   // get docs
   const [toggle, setToggle] = useState(false);
-  const getBooks = async () => {
-    const docRef = collection(fireStore, "books");
-    const mybook = await getDocs(docRef);
-
-    if (mybook) {
-      // console.log(mybook.docs[0].data().auther);
-      setToggle(!toggle);
-      return mybook;
-    } else {
-      console.log("No such document!");
-    }
-  };
-
-  const getView = async (id) => {
-    const docRef = doc(fireStore, "books", id);
-    const docSnap = await getDoc(docRef);
-    if (docSnap) {
-      // console.log(docSnap.data());
-      return docSnap;
-    } else {
-      console.log("No such document!");
-    }
-  };
 
   return (
     <FirebaseContext.Provider
@@ -225,15 +315,9 @@ export const FirebaseProvider = (props) => {
         signUpWithGoogle,
         user,
         logout,
-        writeUserData,
-        msg,
         loginWithEmailPass,
-        addbook,
-        getBooks,
-        getImg,
-        setToggle,
-        toggle,
-        getView,
+        updateUserScoreAndAttempted,
+        fireUser,
       }}
     >
       {props.children}

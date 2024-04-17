@@ -7,6 +7,7 @@ import Signup from "./loginAndSignup/Signup.jsx";
 import ChatBot from "./component/ChatBot.jsx";
 import UserTest from "./loginAndSignup/userTest/UserTest.jsx";
 import Page from "./component/homePage.jsx";
+import Dashboard from "./user/Dashboard.jsx";
 
 function App() {
   return (
@@ -18,8 +19,7 @@ function App() {
       <Route path="/home" element={<Page />} />
       <Route path="/bot" element={<ChatBot />} />
       <Route path="/test" element={<UserTest />} />
-
-
+      <Route path="/dash" element={<Dashboard />} />
     </Routes>
   );
 }
