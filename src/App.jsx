@@ -6,16 +6,17 @@ import Tempuser from "./component/Tempuser.jsx";
 import Signup from "./loginAndSignup/Signup.jsx";
 import ChatBot from "./component/ChatBot.jsx";
 import UserTest from "./loginAndSignup/userTest/UserTest.jsx";
+import Page from "./component/homePage.jsx";
 import Dashboard from "./user/Dashboard.jsx";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Hero />} />
-
       <Route path="/login" element={<Login />} />
       <Route path="/user" element={<Tempuser />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/home" element={<Page />} />
       <Route path="/bot" element={<ChatBot />} />
       <Route path="/test" element={<UserTest />} />
       <Route path="/dash" element={<Dashboard />} />
