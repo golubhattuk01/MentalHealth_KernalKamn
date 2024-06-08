@@ -12,7 +12,7 @@ Our goal is to empower you with insights into your mental health and provide act
 
 Use Python to generate dynamic quizzes that adapt based on the user’s previous responses and mental health history. Questions will cover emotional well-being, stress levels, sleep patterns, and more.
 
-# NLP Analysis:
+# NLP Analysis: working on it ......
 
 Implement Natural Language Processing (NLP) techniques to analyze open-ended responses with user. This could involve sentiment analysis and keyword extraction to understand the user's emotions and concerns more deeply.
 
